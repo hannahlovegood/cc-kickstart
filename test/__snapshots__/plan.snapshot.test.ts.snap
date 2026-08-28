@@ -1,0 +1,671 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`buildPlan 快照(代表性配置) > en · python + uv + pytest + ruff 1`] = `
+[
+  {
+    "content": "<!-- ck:begin header h=8dee4969 -->
+# demo
+
+(One sentence: what this project is and whose problem it solves.)
+(One more: where the boundary is — being explicit about what it does **not** do matters just as much.)
+<!-- ck:end header -->
+
+<!-- ck:begin ground-rules h=5a3b8685 -->
+## Ground rules (read before changing code)
+
+Write the "never do this" list here, each with a why — an AI only respects a rule when it knows the reason behind it.
+
+- Destructive operations (deleting files, touching production data, force-pushing) require asking a human first. No exceptions.
+- Report results honestly: if tests are red, say red; if a step was skipped, say so. "Should be fine" is not verification.
+- Dependencies go into the project manifest (pyproject/requirements) only; no ad-hoc installs without a lockfile update.
+- Lint/format must pass before every commit — no bypassing, no disabling rules to get to green.
+- (Add your project's own red lines: which file must never be touched? Which API has a hidden contract? Which incident must not repeat?)
+<!-- ck:end ground-rules -->
+
+<!-- ck:begin commands h=c2020d0e -->
+## Common commands
+
+\`\`\`bash
+# generated from common conventions — adjust to match reality
+uv sync                # sync dependencies (lockfile)
+uv run python main.py  # run entry point (adjust)
+uv run pytest          # run all tests
+uv run ruff check      # lint
+\`\`\`
+<!-- ck:end commands -->
+
+<!-- ck:begin structure h=50aa1bfa -->
+## Directory structure
+
+- (no subdirectories yet — fill in once the structure takes shape)
+
+(Add one line per entry saying what it is for, so the next session does not have to guess by opening each one. Update this section when the structure changes.)
+<!-- ck:end structure -->
+
+<!-- ck:begin facts h=72b1579d -->
+## Verified technical facts (do not re-learn these the hard way)
+
+Pitfalls already hit, version constraints already verified, counter-intuitive environment quirks — record them here. Each line saves the next session one round of debugging.
+
+- (Format example: \`X must stay pinned at vN — behavior changed in vN+1 and upgrading breaks Y\`.)
+<!-- ck:end facts -->
+
+<!-- ck:begin handoff h=b42f292e -->
+## Handoff protocol (mandatory at the end of every session)
+
+Make sure the next session (or another AI tool, or another person) can pick up without loss. Handoff lives in **files and git**, not in chat memory — conversations end, files stay.
+
+**When starting**: read the "Current progress" section of this file plus \`git log --oneline -10\`. Confirm where the last session stopped and what the agreed next step is. Do not skip this and start coding.
+
+**When wrapping up, do these three things in order:**
+
+1. **Update "Current progress"**: one sentence of status, one sentence of next step. Keep process details out of the progress section — put them under "Verified technical facts" or a separate note.
+2. **Commit**: message format \`demo: what was done, next=what comes next\`. "What was done" states outcomes, not process; "next" must be concrete enough to start on directly. Run \`uv run pytest\` before committing — never wrap up on red.
+3. **Write new conventions back**: any new workflow established or new pitfall hit this session goes back into the matching section of this file (ground rules / commands / facts). A convention that only lives in chat does not exist.
+
+**Closing convention**: end every wrap-up report with one concrete action doable today — never with "polish another round".
+<!-- ck:end handoff -->
+
+## Current progress
+
+- Status: initialized on 2026-01-02, work not started yet.
+- Next: (write down the first concrete task.)
+- Last handoff: —
+",
+    "kind": "create",
+    "path": "CLAUDE.md",
+  },
+  {
+    "content": "---
+name: commit-helper
+description: Wrap-up commits - review changes, write the commit message in "what was done + next step" format, update the CLAUDE.md progress section. Usage - /commit-helper. Use when the user says "wrap up", "commit", "handoff" or "check in".
+---
+
+# Wrap-up commit (handoff-style)
+
+A commit message is a handoff note to the next session, not a changelog entry. Goal: the next session knows where to pick up from \`git log\` alone.
+
+## 1. Review the changes
+
+- Go through \`git status\` + \`git diff\`: confirm no unrelated files slipped in and no sensitive data (.env, keys, real personal data).
+- Run \`uv run ruff check\`; fix red before committing.
+- Run \`uv run pytest\`; never wrap up on failing tests.
+
+## 2. Update the progress section
+
+- Update "Current progress" in CLAUDE.md: one sentence of status, one of next step; tick off finished items.
+
+## 3. Write the message and commit
+
+- Format: \`<project or module>: what was done, next=what comes next\`
+- "What was done" states outcomes, not process; "next" must be concrete enough to start on — no filler like "keep improving".
+
+## 4. Closing
+
+- Report to the user: what was committed and what comes next — ending with one concrete action doable today.
+",
+    "kind": "create",
+    "path": ".claude/skills/commit-helper/SKILL.md",
+  },
+  {
+    "content": "---
+name: test-gen
+description: Add tests for a given file or function - read the implementation and existing test style first, then write minimal but real cases and run them green. Usage - /test-gen src/foo.ts. Use when the user says "add tests", "write tests" or "cover this".
+---
+
+# Test generator
+
+The point of adding tests is to lock in behavior, not to farm coverage. One assertion that can fail beats ten that are always green.
+
+## 1. Understand before writing
+
+- Read the target implementation and list its behaviors: happy path, boundaries, error paths.
+- Look at how existing tests are organized (file location, naming, assertion style) and stay consistent — do not introduce a second style.
+
+## 2. Write minimal real cases
+
+- One case per behavior, named so it reads "input X → result Y".
+- Prefer real inputs over mocks; when mocking is unavoidable, mock only at boundaries (network, clock, filesystem).
+- pytest: merge same-shaped cases with parametrize; shared fixtures go in conftest.py.
+
+## 3. Run to green
+
+- Run \`uv run pytest\` until fully green; also confirm the new cases do not visibly slow down the suite.
+
+## 4. Closing
+
+- Report: which behaviors are covered, and which edges were **deliberately left untested** and why — an honest gap beats fake full coverage.
+",
+    "kind": "create",
+    "path": ".claude/skills/test-gen/SKILL.md",
+  },
+  {
+    "content": "{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(uv run:*)",
+      "Bash(uv sync)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)"
+    ]
+  }
+}
+",
+    "kind": "create",
+    "path": ".claude/settings.json",
+  },
+]
+`;
+
+exports[`buildPlan 快照(代表性配置) > zh · AGENTS.md 模式 + no-promo:内容进 AGENTS.md,CLAUDE.md 是引用壳 1`] = `
+[
+  {
+    "content": "<!-- ck:begin header h=f73f9e9f -->
+# demo
+
+(一句话:这个项目是什么、解决谁的什么问题。)
+(再一句:边界在哪——明确**不做**什么,和做什么同样重要。)
+<!-- ck:end header -->
+
+<!-- ck:begin ground-rules h=e07c72dc -->
+## 铁律(改代码前先读)
+
+把「绝不允许」的事写在这里,每条都带为什么——AI 只有知道原因才不会绕过去。
+
+- 破坏性操作(删文件、改线上数据、强推 git)先停下来问人,不许自作主张。
+- 报告结果要如实:测试红了就说红了,跳过了哪步就说跳过了,不许把"应该没问题"当验证。
+- (补上你项目自己的红线:哪个文件不能动?哪个接口有隐藏约定?哪次事故不想重演?)
+<!-- ck:end ground-rules -->
+
+<!-- ck:begin commands h=daa56ca3 -->
+## 常用命令
+
+\`\`\`bash
+# 以下按常见约定生成,请对照项目实际校准
+npm install     # 安装依赖
+npm run dev     # 本地开发
+npx vitest run  # 跑全部测试
+\`\`\`
+建议在 package.json 加一条 \`"check": "……"\` 把 typecheck + test + build 串成一条龙,收工前跑它,一条命令知道项目是否健康。
+<!-- ck:end commands -->
+
+<!-- ck:begin structure h=808d3f3d -->
+## 目录结构
+
+- (暂无子目录——结构成形后回来补)
+
+(每行补一句"它是干什么的",让下一个 session 不用逐个点开猜;结构变了记得回来改这里。)
+<!-- ck:end structure -->
+
+<!-- ck:begin facts h=82e03497 -->
+## 已查证的技术前提(别再踩)
+
+踩过的坑、查证过的版本约束、反直觉的环境问题,记在这里——每条都是给下一个 session 省下的一次排查。
+
+- (示例格式:\`X 必须锁在 vN 版本——vN+1 起行为变了,升级会导致 Y\`。)
+<!-- ck:end facts -->
+
+<!-- ck:begin handoff h=f31e0cef -->
+## 交接协议(每次收工必做)
+
+让下一个 session(或另一个 AI 工具、另一个人)能无损接手。交接靠**文件和 git**,不靠对话记忆——对话会结束,文件会留下。
+
+**开工时**:先读本文件的「当前进度」区 + \`git log --oneline -10\`,确认上一手做到哪、说好的下一步是什么。不要跳过这步直接开写。
+
+**收工时,按顺序做完这三件事:**
+
+1. **更新「当前进度」区**:状态一句话、下一步一句话。过程细节不要堆在进度区——写进「已查证的技术前提」或单独笔记。
+2. **commit**:message 格式 \`demo: 做了什么,下一步=什么\`。"做了什么"写结果不写过程;"下一步"要具体到下一手能直接开工。提交前先跑 \`npx vitest run\`,红灯不收工。
+3. **新约定回写**:本次确立的新流程、新踩的坑,回写到本文件对应小节(铁律 / 常用命令 / 技术前提)。约定只留在对话里等于没约定。
+
+**结束语约定**:收工汇报的最后,落到一个"今天就能做的具体动作",不要落在"再打磨一版"。
+<!-- ck:end handoff -->
+
+## 当前进度
+
+- 状态:2026-01-02 项目初始化,尚未开工。
+- 下一步:(写下第一个具体任务。)
+- 最近一次交接:—
+",
+    "kind": "create",
+    "path": "AGENTS.md",
+  },
+  {
+    "content": "@AGENTS.md
+
+<!-- 本项目班规的唯一真源是 AGENTS.md(上一行已整份导入,Codex/Cursor 等工具直接读它)。改通用班规只改 AGENTS.md;本文件只放 Claude Code 专属内容(skill、MCP 等)。 -->
+",
+    "kind": "create",
+    "path": "CLAUDE.md",
+  },
+  {
+    "content": "---
+name: commit-helper
+description: 收工提交:盘点改动、按「做了什么+下一步」格式写 commit message、更新 CLAUDE.md 进度区。用法:/commit-helper。用户说"收工/提交/commit/交接"时用这个。
+---
+
+# 收工提交(交接式 commit)
+
+commit message 是写给下一个 session 的交接便条,不是流水账。目标:下一手只看 \`git log\` 就知道从哪接。
+
+## 1. 盘点改动
+
+- \`git status\` + \`git diff\` 过一遍:确认没有混进无关文件,没有敏感信息(.env、密钥、真实个人数据)。
+- 跑 \`npx vitest run\`,测试不过不收工。
+
+## 2. 更新进度区
+
+- 更新 CLAUDE.md 的「当前进度」:状态一句话、下一步一句话,勾掉已完成的事项。
+
+## 3. 写 message 并提交
+
+- 格式:\`<项目或模块>: 做了什么,下一步=什么\`
+- "做了什么"写结果不写过程;"下一步"具体到能直接开工,不写"继续优化"这类空话。
+
+## 4. 结束语
+
+- 向用户汇报:提交了什么、下一步是什么——最后落到一个今天就能做的具体动作。
+",
+    "kind": "create",
+    "path": ".claude/skills/commit-helper/SKILL.md",
+  },
+  {
+    "content": "---
+name: test-gen
+description: 为指定文件或函数补测试:先读实现和现有测试风格,再写最小但真实的用例并跑绿。用法:/test-gen src/foo.ts。用户说"补测试/写测试/加用例"时用这个。
+---
+
+# 测试生成器
+
+补测试的目的是锁住行为,不是凑覆盖率。一条会失败的断言,胜过十条永远绿的。
+
+## 1. 读懂再写
+
+- 读目标实现,列出行为清单:正常路径、边界值、错误路径。
+- 看现有测试的组织方式(文件位置、命名、断言风格),新测试保持一致,不引入第二套风格。
+
+## 2. 写最小真实用例
+
+- 每个行为一个用例,名字说清"什么输入 → 什么结果"。
+- 优先真实输入,少用 mock;必须 mock 时只 mock 边界(网络、时钟、文件系统)。
+
+## 3. 跑到绿
+
+- 跑 \`npx vitest run\`,全绿才算完;顺手确认新用例没有明显拖慢整个套件。
+
+## 4. 结束语
+
+- 汇报:覆盖了哪些行为、哪些边界**故意没测**以及为什么——诚实的空白比虚假的全覆盖有用。
+",
+    "kind": "create",
+    "path": ".claude/skills/test-gen/SKILL.md",
+  },
+  {
+    "content": "{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(npm install)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)"
+    ]
+  }
+}
+",
+    "kind": "create",
+    "path": ".claude/settings.json",
+  },
+]
+`;
+
+exports[`buildPlan 快照(代表性配置) > zh · node + npm + 真实 scripts 1`] = `
+[
+  {
+    "content": "<!-- ck:begin header h=f73f9e9f -->
+# demo
+
+(一句话:这个项目是什么、解决谁的什么问题。)
+(再一句:边界在哪——明确**不做**什么,和做什么同样重要。)
+<!-- ck:end header -->
+
+<!-- ck:begin ground-rules h=e07c72dc -->
+## 铁律(改代码前先读)
+
+把「绝不允许」的事写在这里,每条都带为什么——AI 只有知道原因才不会绕过去。
+
+- 破坏性操作(删文件、改线上数据、强推 git)先停下来问人,不许自作主张。
+- 报告结果要如实:测试红了就说红了,跳过了哪步就说跳过了,不许把"应该没问题"当验证。
+- (补上你项目自己的红线:哪个文件不能动?哪个接口有隐藏约定?哪次事故不想重演?)
+<!-- ck:end ground-rules -->
+
+<!-- ck:begin commands h=1c5d0622 -->
+## 常用命令
+
+\`\`\`bash
+npm run dev    # 本地开发
+npm test       # 跑全部测试
+npm run check  # typecheck + test + build 一条龙
+\`\`\`
+<!-- ck:end commands -->
+
+<!-- ck:begin structure h=808d3f3d -->
+## 目录结构
+
+- (暂无子目录——结构成形后回来补)
+
+(每行补一句"它是干什么的",让下一个 session 不用逐个点开猜;结构变了记得回来改这里。)
+<!-- ck:end structure -->
+
+<!-- ck:begin facts h=82e03497 -->
+## 已查证的技术前提(别再踩)
+
+踩过的坑、查证过的版本约束、反直觉的环境问题,记在这里——每条都是给下一个 session 省下的一次排查。
+
+- (示例格式:\`X 必须锁在 vN 版本——vN+1 起行为变了,升级会导致 Y\`。)
+<!-- ck:end facts -->
+
+<!-- ck:begin handoff h=809c2926 -->
+## 交接协议(每次收工必做)
+
+让下一个 session(或另一个 AI 工具、另一个人)能无损接手。交接靠**文件和 git**,不靠对话记忆——对话会结束,文件会留下。
+
+**开工时**:先读本文件的「当前进度」区 + \`git log --oneline -10\`,确认上一手做到哪、说好的下一步是什么。不要跳过这步直接开写。
+
+**收工时,按顺序做完这三件事:**
+
+1. **更新「当前进度」区**:状态一句话、下一步一句话。过程细节不要堆在进度区——写进「已查证的技术前提」或单独笔记。
+2. **commit**:message 格式 \`demo: 做了什么,下一步=什么\`。"做了什么"写结果不写过程;"下一步"要具体到下一手能直接开工。提交前先跑 \`npm test\`,红灯不收工。
+3. **新约定回写**:本次确立的新流程、新踩的坑,回写到本文件对应小节(铁律 / 常用命令 / 技术前提)。约定只留在对话里等于没约定。
+
+**结束语约定**:收工汇报的最后,落到一个"今天就能做的具体动作",不要落在"再打磨一版"。
+<!-- ck:end handoff -->
+
+## 当前进度
+
+- 状态:2026-01-02 项目初始化,尚未开工。
+- 下一步:(写下第一个具体任务。)
+- 最近一次交接:—
+",
+    "kind": "create",
+    "path": "CLAUDE.md",
+  },
+  {
+    "content": "---
+name: commit-helper
+description: 收工提交:盘点改动、按「做了什么+下一步」格式写 commit message、更新 CLAUDE.md 进度区。用法:/commit-helper。用户说"收工/提交/commit/交接"时用这个。
+---
+
+# 收工提交(交接式 commit)
+
+commit message 是写给下一个 session 的交接便条,不是流水账。目标:下一手只看 \`git log\` 就知道从哪接。
+
+## 1. 盘点改动
+
+- \`git status\` + \`git diff\` 过一遍:确认没有混进无关文件,没有敏感信息(.env、密钥、真实个人数据)。
+- 跑 \`npm test\`,测试不过不收工。
+
+## 2. 更新进度区
+
+- 更新 CLAUDE.md 的「当前进度」:状态一句话、下一步一句话,勾掉已完成的事项。
+
+## 3. 写 message 并提交
+
+- 格式:\`<项目或模块>: 做了什么,下一步=什么\`
+- "做了什么"写结果不写过程;"下一步"具体到能直接开工,不写"继续优化"这类空话。
+
+## 4. 结束语
+
+- 向用户汇报:提交了什么、下一步是什么——最后落到一个今天就能做的具体动作。
+",
+    "kind": "create",
+    "path": ".claude/skills/commit-helper/SKILL.md",
+  },
+  {
+    "content": "---
+name: test-gen
+description: 为指定文件或函数补测试:先读实现和现有测试风格,再写最小但真实的用例并跑绿。用法:/test-gen src/foo.ts。用户说"补测试/写测试/加用例"时用这个。
+---
+
+# 测试生成器
+
+补测试的目的是锁住行为,不是凑覆盖率。一条会失败的断言,胜过十条永远绿的。
+
+## 1. 读懂再写
+
+- 读目标实现,列出行为清单:正常路径、边界值、错误路径。
+- 看现有测试的组织方式(文件位置、命名、断言风格),新测试保持一致,不引入第二套风格。
+
+## 2. 写最小真实用例
+
+- 每个行为一个用例,名字说清"什么输入 → 什么结果"。
+- 优先真实输入,少用 mock;必须 mock 时只 mock 边界(网络、时钟、文件系统)。
+
+## 3. 跑到绿
+
+- 跑 \`npm test\`,全绿才算完;顺手确认新用例没有明显拖慢整个套件。
+
+## 4. 结束语
+
+- 汇报:覆盖了哪些行为、哪些边界**故意没测**以及为什么——诚实的空白比虚假的全覆盖有用。
+",
+    "kind": "create",
+    "path": ".claude/skills/test-gen/SKILL.md",
+  },
+  {
+    "content": "{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(npm install)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)"
+    ]
+  }
+}
+",
+    "kind": "create",
+    "path": ".claude/settings.json",
+  },
+]
+`;
+
+exports[`buildPlan 快照(代表性配置) > zh · web + pnpm + vitest + eslint-prettier + worktree · 空目录 1`] = `
+[
+  {
+    "content": "<!-- ck:begin header h=f73f9e9f -->
+# demo
+
+(一句话:这个项目是什么、解决谁的什么问题。)
+(再一句:边界在哪——明确**不做**什么,和做什么同样重要。)
+<!-- ck:end header -->
+
+<!-- ck:begin ground-rules h=025e6231 -->
+## 铁律(改代码前先读)
+
+把「绝不允许」的事写在这里,每条都带为什么——AI 只有知道原因才不会绕过去。
+
+- 破坏性操作(删文件、改线上数据、强推 git)先停下来问人,不许自作主张。
+- 报告结果要如实:测试红了就说红了,跳过了哪步就说跳过了,不许把"应该没问题"当验证。
+- 界面改动必须在浏览器真实验证过再收工:console 零报错、桌面与移动双视口无横向溢出、主交互流程真点过一遍。
+- 提交前必须过 lint/format,红灯不许绕、不许关规则了事。
+- (补上你项目自己的红线:哪个文件不能动?哪个接口有隐藏约定?哪次事故不想重演?)
+<!-- ck:end ground-rules -->
+
+<!-- ck:begin commands h=a6681c89 -->
+## 常用命令
+
+\`\`\`bash
+# 以下按常见约定生成,请对照项目实际校准
+pnpm install                  # 安装依赖
+pnpm dev                      # 本地开发
+pnpm build                    # 构建产物
+pnpm exec vitest run          # 跑全部测试
+pnpm exec eslint .            # 代码检查
+pnpm exec prettier --check .  # 格式检查
+\`\`\`
+建议在 package.json 加一条 \`"check": "……"\` 把 typecheck + test + build 串成一条龙,收工前跑它,一条命令知道项目是否健康。
+<!-- ck:end commands -->
+
+<!-- ck:begin structure h=2017c8c7 -->
+## 目录结构
+
+- \`public/\` —— (一句话说明)
+- \`src/\` —— (一句话说明)
+
+(每行补一句"它是干什么的",让下一个 session 不用逐个点开猜;结构变了记得回来改这里。)
+<!-- ck:end structure -->
+
+<!-- ck:begin facts h=82e03497 -->
+## 已查证的技术前提(别再踩)
+
+踩过的坑、查证过的版本约束、反直觉的环境问题,记在这里——每条都是给下一个 session 省下的一次排查。
+
+- (示例格式:\`X 必须锁在 vN 版本——vN+1 起行为变了,升级会导致 Y\`。)
+<!-- ck:end facts -->
+
+<!-- ck:begin handoff h=1ea75125 -->
+## 交接协议(每次收工必做)
+
+让下一个 session(或另一个 AI 工具、另一个人)能无损接手。交接靠**文件和 git**,不靠对话记忆——对话会结束,文件会留下。
+
+**开工时**:先读本文件的「当前进度」区 + \`git log --oneline -10\`,确认上一手做到哪、说好的下一步是什么。不要跳过这步直接开写。
+
+**收工时,按顺序做完这三件事:**
+
+1. **更新「当前进度」区**:状态一句话、下一步一句话。过程细节不要堆在进度区——写进「已查证的技术前提」或单独笔记。
+2. **commit**:message 格式 \`demo: 做了什么,下一步=什么\`。"做了什么"写结果不写过程;"下一步"要具体到下一手能直接开工。提交前先跑 \`pnpm exec vitest run\`,红灯不收工。
+3. **新约定回写**:本次确立的新流程、新踩的坑,回写到本文件对应小节(铁律 / 常用命令 / 技术前提)。约定只留在对话里等于没约定。
+
+**worktree 并行班规**(多任务并行时):
+
+- 每个并行任务开独立 worktree:\`git worktree add ../demo-<任务名> -b <任务名>\`
+- 各 worktree 只改自己负责的文件,同一个文件不要两边同时动。
+- 任务完成:合并回主干 → \`git worktree remove <路径>\` 清理。交接状态只认主干上的「当前进度」区。
+
+**结束语约定**:收工汇报的最后,落到一个"今天就能做的具体动作",不要落在"再打磨一版"。
+<!-- ck:end handoff -->
+
+## 当前进度
+
+- 状态:2026-01-02 项目初始化,尚未开工。
+- 下一步:(写下第一个具体任务。)
+- 最近一次交接:—
+",
+    "kind": "create",
+    "path": "CLAUDE.md",
+  },
+  {
+    "content": "---
+name: commit-helper
+description: 收工提交:盘点改动、按「做了什么+下一步」格式写 commit message、更新 CLAUDE.md 进度区。用法:/commit-helper。用户说"收工/提交/commit/交接"时用这个。
+---
+
+# 收工提交(交接式 commit)
+
+commit message 是写给下一个 session 的交接便条,不是流水账。目标:下一手只看 \`git log\` 就知道从哪接。
+
+## 1. 盘点改动
+
+- \`git status\` + \`git diff\` 过一遍:确认没有混进无关文件,没有敏感信息(.env、密钥、真实个人数据)。
+- 跑 \`pnpm exec eslint .\`,红灯先修再提交。
+- 跑 \`pnpm exec vitest run\`,测试不过不收工。
+
+## 2. 更新进度区
+
+- 更新 CLAUDE.md 的「当前进度」:状态一句话、下一步一句话,勾掉已完成的事项。
+
+## 3. 写 message 并提交
+
+- 格式:\`<项目或模块>: 做了什么,下一步=什么\`
+- "做了什么"写结果不写过程;"下一步"具体到能直接开工,不写"继续优化"这类空话。
+
+## 4. 结束语
+
+- 向用户汇报:提交了什么、下一步是什么——最后落到一个今天就能做的具体动作。
+",
+    "kind": "create",
+    "path": ".claude/skills/commit-helper/SKILL.md",
+  },
+  {
+    "content": "---
+name: test-gen
+description: 为指定文件或函数补测试:先读实现和现有测试风格,再写最小但真实的用例并跑绿。用法:/test-gen src/foo.ts。用户说"补测试/写测试/加用例"时用这个。
+---
+
+# 测试生成器
+
+补测试的目的是锁住行为,不是凑覆盖率。一条会失败的断言,胜过十条永远绿的。
+
+## 1. 读懂再写
+
+- 读目标实现,列出行为清单:正常路径、边界值、错误路径。
+- 看现有测试的组织方式(文件位置、命名、断言风格),新测试保持一致,不引入第二套风格。
+
+## 2. 写最小真实用例
+
+- 每个行为一个用例,名字说清"什么输入 → 什么结果"。
+- 优先真实输入,少用 mock;必须 mock 时只 mock 边界(网络、时钟、文件系统)。
+
+## 3. 跑到绿
+
+- 跑 \`pnpm exec vitest run\`,全绿才算完;顺手确认新用例没有明显拖慢整个套件。
+
+## 4. 结束语
+
+- 汇报:覆盖了哪些行为、哪些边界**故意没测**以及为什么——诚实的空白比虚假的全覆盖有用。
+",
+    "kind": "create",
+    "path": ".claude/skills/test-gen/SKILL.md",
+  },
+  {
+    "content": "{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(pnpm run:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm install)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)"
+    ]
+  }
+}
+",
+    "kind": "create",
+    "path": ".claude/settings.json",
+  },
+]
+`;

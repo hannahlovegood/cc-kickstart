@@ -36,6 +36,9 @@ export interface Detected {
   claudeMdText?: string;
   agentsMd: DocState;
   agentsMdText?: string;
+  /** 旁车文件 CLAUDE.kickstart.md / AGENTS.kickstart.md 的现有内容(幂等判定用) */
+  claudeSidecarText?: string;
+  agentsSidecarText?: string;
   /** null=不存在;'invalid'=存在但不是合法 JSON */
   settings: Record<string, unknown> | null | 'invalid';
   existingSkills: string[];
@@ -86,6 +89,8 @@ export interface SectionChange {
 export type ActionKind =
   | 'create'
   | 'update-sections'
+  /** 无标记存量文档:末尾追加标记节(交互模式用户选定后) */
+  | 'append'
   | 'sidecar'
   /** 存量文件无标记(或标记损坏),交互模式需三选一;--defaults 下会被解析成 sidecar */
   | 'ask-unmarked'

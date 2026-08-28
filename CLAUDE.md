@@ -45,7 +45,8 @@ npm run check        # typecheck + test + build 一条龙,收工前跑它
 
 ## 当前进度
 
-- 状态:M1 进行中(2026-08-28)——仓库/工具链/类型/模板全套(zh+en)就位,--version/--help 可跑。
-- 下一步:M2 按依赖序实现 render → templates → detect → commands → prompts+i18n → settings → plan → merge → write+report,测试随写随加。
-- 用户待办(卡点):① npm 账号注册/登录(占位发布 0.0.1 与最终发布都需要)② 爱发电/Gumroad 商品页(现用 GitHub README 锚点占位,上架后替换 templates/*/next-steps.md 与 README 里的链接)。
-- 最近一次交接:2026-08-28 方案获批,M1 开工。
+- 状态:M2 完成(2026-08-28)——全链路可跑:问答/defaults → detect → plan → merge 三态 → 写盘 → 报告;66 个测试全绿(渲染器/查表矩阵/探测/模板镜像/merge 四态 fixtures/settings 合并/快照×4/e2e 幂等双跑/pack 布局);拿 gloss-auditor 真实手写 CLAUDE.md 实弹演练过:旁车生成、原文件逐字节未动。
+- 下一步:M3——双语 README(GIF 占位+非官方声明+竞品差异 FAQ)、npm pack 清单人工过一遍、(可选)ci.yml、外层看板收工;发布卡在 npm 登录。
+- 已知边界:交互分支(clack 多选/三选一)无法在无 TTY 的自动化里跑,靠共享的 plan/write 纯函数测试兜底,发布前建议真人跑一遍交互流程。
+- 用户待办(卡点):① npm 账号注册/登录(`npm login`,发布必需)② 爱发电/Gumroad 商品页(现用 GitHub README 锚点占位,上架后替换 templates/*/next-steps.md 与 README 里的链接)。
+- 最近一次交接:2026-08-28 M2 收工,核心实现+测试全绿。
