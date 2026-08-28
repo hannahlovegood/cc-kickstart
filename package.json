@@ -1,0 +1,57 @@
+{
+  "name": "cc-kickstart",
+  "version": "0.1.0",
+  "description": "Interactive scaffolder for CLAUDE.md, Claude Code skills and settings. 交互式生成 CLAUDE.md、示例 skills 与推荐配置。",
+  "type": "module",
+  "bin": {
+    "cc-kickstart": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "templates"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "npm run typecheck && npm run test && npm run build",
+    "prepublishOnly": "npm run check"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "claude-md",
+    "agents-md",
+    "cli",
+    "scaffold",
+    "skills",
+    "onboarding"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hannahlovegood/cc-kickstart.git"
+  },
+  "homepage": "https://github.com/hannahlovegood/cc-kickstart#readme",
+  "bugs": "https://github.com/hannahlovegood/cc-kickstart/issues",
+  "author": "hannahlovegood",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.7.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.0",
+    "tsup": "^8.5.1",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.11"
+  }
+}
