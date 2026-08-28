@@ -7,6 +7,6 @@
 {{#if promo}}
 
 觉得模板有用?完整版「Claude Code 中文实战模板包」正在筹备(12+ 场景模板、真实项目案例、持续更新),进展见:
-https://github.com/hannahlovegood/cc-kickstart#模板包
+https://github.com/hannahlovegood/cc-kickstart/blob/main/README.zh-CN.md#模板包
 (用 --no-promo 可关闭本条提示)
 {{/if}}

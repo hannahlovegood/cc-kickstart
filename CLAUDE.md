@@ -45,8 +45,8 @@ npm run check        # typecheck + test + build 一条龙,收工前跑它
 
 ## 当前进度
 
-- 状态:M2 完成(2026-08-28)——全链路可跑:问答/defaults → detect → plan → merge 三态 → 写盘 → 报告;66 个测试全绿(渲染器/查表矩阵/探测/模板镜像/merge 四态 fixtures/settings 合并/快照×4/e2e 幂等双跑/pack 布局);拿 gloss-auditor 真实手写 CLAUDE.md 实弹演练过:旁车生成、原文件逐字节未动。
-- 下一步:M3——双语 README(GIF 占位+非官方声明+竞品差异 FAQ)、npm pack 清单人工过一遍、(可选)ci.yml、外层看板收工;发布卡在 npm 登录。
+- 状态:M3 完成(2026-08-28)——双语 README(非官方声明+merge 保证+竞品差异 FAQ+模板包锚点)、CI workflow、npm pack 清单已人工核对(29 文件 27.9kB,无测试夹具混入);**代码侧全部就绪,只差 `npm login` + `npm publish`**。
+- 下一步:你 `npm login` 后在本目录 `npm publish`(prepublishOnly 自动跑 check),发完在空目录 `npx cc-kickstart@latest --defaults --dry-run` + `pnpm dlx` 双冒烟;然后录 demo GIF、上架爱发电换掉占位链接。
 - 已知边界:交互分支(clack 多选/三选一)无法在无 TTY 的自动化里跑,靠共享的 plan/write 纯函数测试兜底,发布前建议真人跑一遍交互流程。
 - 用户待办(卡点):① npm 账号注册/登录(`npm login`,发布必需)② 爱发电/Gumroad 商品页(现用 GitHub README 锚点占位,上架后替换 templates/*/next-steps.md 与 README 里的链接)。
 - 最近一次交接:2026-08-28 M2 收工,核心实现+测试全绿。
